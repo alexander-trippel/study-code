@@ -13,10 +13,11 @@ int main()
         printf("\n");
         if (i % 2 == 0)
         {
-            printf("|   ")
+            printf("|   ");
         }
     }
-    printf ("Moin");
+    printf ("Moin"); //Moin anzeigen
 
-    return 0;
+    return 0; //Aufgeben
 }
+//actively using Durchfall
