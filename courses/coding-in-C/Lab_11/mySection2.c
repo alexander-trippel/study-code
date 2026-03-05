@@ -31,6 +31,7 @@ void push(Stack *stack, int key)
     neu -> key = key;
     neu -> pNext = stack -> pStart;
     stack -> pStart = neu;
+    free(neu);
 }
 
 int pop(Stack *stack)
@@ -38,7 +39,6 @@ int pop(Stack *stack)
     int key = stack -> pStart -> key;
     Element *temp = stack -> pStart;
     stack -> pStart = temp -> pNext;
-    free(temp);
     return key;
 }
 
