@@ -4,16 +4,16 @@
 #include <time.h>
 
 
-typedef struct 
+typedef struct
 {
 	double value;
 	struct Node* pNext;
 }Node;
 
 
-Node *createNode(double newValue)
+Node* createNode(double newValue)
 {
-	Node *newNode = malloc(sizeof(*newNode));
+	Node* newNode = malloc(sizeof(*newNode));
 	if (newNode == NULL)
 	{
 		printf("Falscher rückgabewert!!!");
@@ -31,15 +31,18 @@ int main()
 {
 	Node* head = NULL;
 	Node* temp = NULL;
-	
-	int randomNumber[50];
+
+	int randomNumber[51];
 	srand(time(NULL));
 	int random = rand();
 
+
+
+	printf("hallo");
 	for (int i = 0; i <= 50; i++)
 	{
 		randomNumber[i] = rand();
-		Node *new = createNode(rand());
+		Node* new = createNode(rand());
 		if (head == NULL)
 		{
 			head = new;
@@ -51,6 +54,40 @@ int main()
 			temp = new;
 		}
 	}
+	printf("zweites hallo");
+	for (int i = 50	; i >= 4; i--)
+	{
+		randomNumber[i] = randomNumber[i - 1];
+	}
+	randomNumber[3] = random;
+	printf("\n\n%d", randomNumber[3]);
+
+
+	Node* new = createNode(rand());
+	temp = head->pNext;
+	new->pNext = temp->pNext;
+	temp->pNext = new;
+
+	for (int i = 0; i < 51; i++)
+	{
+		printf("\n\n %d", randomNumber[i]);
+	}
+	
+	Node* ausgabe = head;
+	while (ausgabe != NULL)
+	{
+		printf("\n\n %f", ausgabe->value);
+		ausgabe = ausgabe->pNext;
+	}
+
+	while (temp != NULL)
+	{
+		temp = head;
+		head = head->pNext;
+		free(temp);
+	}
+	free(new);
+}
 
 
 
