@@ -11,9 +11,37 @@ typedef struct
 { 
     int id;
     double threshold;
-    SensorData data[100];
-    int object_detection[];
+    SensorData data[3000];
+    int object_detection[3000];
 }Sensor;
+
+
+void read_measurement_files(char *pFilename, Sensor *pSensor)
+{
+    FILE *temp = fopen(pFilename, "r");
+    if(temp = NULL)
+    {
+        printf("Problem");
+        return;
+    }
+
+    int i = 0;
+    while(i < 3000)
+    {
+        if(fscanf(temp, "%f%f", pSensor->data[i].time, pSensor->data[i].probability) == 2)
+        {
+            i++;
+        }
+        else
+        {
+            printf("Datei konnte nicht gelesen werden");
+            fclose(temp);
+            return;
+        }
+    }
+    fclose(temp);
+    return;
+}
 
 
 int main()
@@ -31,7 +59,10 @@ int main()
         printf("problem");
     }
     Sensor sensor1;
+    sensor1.threshold = 0.8;
     Sensor sensor2;
+    sensor2.threshold = 0.7;
 
+    
 
 }
