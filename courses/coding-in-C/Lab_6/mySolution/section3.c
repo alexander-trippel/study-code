@@ -43,6 +43,22 @@ void read_measurement_files(char *pFilename, Sensor *pSensor)
     return;
 }
 
+void generate_binary_detection_signal(Sensor *sensor)
+{ 
+    for(int i = 0; i < 3000; i++)
+    {
+        if(sensor->data[i].probability > sensor->threshold)
+        {
+            sensor->object_detection[i] = 1;
+        }
+        else
+        {
+            sensor->object_detection[i] = 0;
+        }
+    }
+    return;
+}
+
 
 int main()
 {
