@@ -19,7 +19,7 @@ typedef struct
 void read_measurement_files(char *pFilename, Sensor *pSensor)
 {
     FILE *temp = fopen(pFilename, "r");
-    if(temp = NULL)
+    if(temp == NULL)
     {
         printf("Problem");
         return;
@@ -59,7 +59,16 @@ void generate_binary_detection_signal(Sensor *sensor)
     return;
 }
 
-
+void get_detection_interval(Sensor *sensor, float intevals[])
+{
+    for(int i = 0; i < 3000; i++)
+    {
+        if(sensor->object_detection[i] == 1)
+        {
+            
+        }
+    }
+}
 int main()
 {
     FILE *data1 = fopen("sensor1.txt", "r");
