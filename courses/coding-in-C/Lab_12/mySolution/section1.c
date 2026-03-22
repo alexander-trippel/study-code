@@ -2,44 +2,49 @@
 #include <assert.h>
 #include <string.h>
 
-void copy_first_line ()
+void copy_first_line (const char *lesen,const char *schreiben)
 {
-    FILE *file = fopen("file.txt", "r");
-    if(file == NULL)
-    {
-        printf("Fehler beim öffnen der Datei!!!");
-        return;
-    }
+    FILE *file = fopen(lesen, "r");
+    assert(file != NULL);
 
-    FILE *targetFile = fopen("targetFile.txt", "w");
-    if(targetFile == NULL)
-    {
-        printf("Fehler beim öffnen der Datei!!!");
-        fclose(file);
-        return;
-    }
+    FILE *targetFile = fopen(schreiben, "w");
+    assert(targetFile != NULL && "öffnen der Datei hat nicht geklappt");
 
     char string[100];
 
-    fgets(string, sizeof(string), file);
-    fputs(string, targetFile);
+    if(fgets(string, sizeof(string), file) != NULL)
+    {
+        fputs(string, targetFile);
+    }
 
     fclose(file);
     fclose(targetFile);
 }
 
-void test_opening_file(FILE *pFile)
-{
-    assert(pFile != NULL);
-    printf("test bestanden\n");
-}
 
 int main()
 {
-    FILE *test = fopen("file.txt", "r");
-    copy_first_line();
+    FILE *neu = fopen("neu.txt", "w");
+    assert(neu != NULL && "öffnen der Datei hat nicht geklappt");
 
-    FILE* neu = fopen("neueDatei.txt", "w");
+    fputs("Hallo wie gehts \nMoin Moin", neu);
 
-    test_opening_file(test);
+    fclose(neu);
+
+    copy_first_line("neu.txt", "erstellteDatei.txt");
+
+    // alles testen
+    FILE *test = fopen("neu.txt", "r");
+    assert(test != NULL);
+
+    char test_string[100];
+    if(fgets(test_string, sizeof(test_string), test) != NULL)
+    {
+        assert(strcmp(test_string, "Hallo wie gehts\n"));
+    }
+    else
+    {
+        assert(0 && "Datei ist leer");
+    }
+    return 0;
 }
